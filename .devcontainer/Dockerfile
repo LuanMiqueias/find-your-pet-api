@@ -12,6 +12,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
 RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/trusted.gpg.d/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 RUN apt update
 
+EXPOSE 5432
 EXPOSE 3000
 
 

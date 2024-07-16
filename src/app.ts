@@ -1,9 +1,5 @@
 import fastify from "fastify";
-
+import { petsRoutes } from "./http/controllers/pet/routes";
 export const app = fastify();
 
-app.register(async (fastify, options) => {
-	fastify.get("/", async (req, res) => {
-		return res.status(200).send("Hello!");
-	});
-});
+app.register(petsRoutes);

@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Profile {
+  id           String   @unique @default(uuid())
+  name         String
+  email        String
+  passwordHash String
+  phone        String
+  city         String
+  createdAt    DateTime @default(now())
+  petList      Pet[]
+}
+
+model Pet {
+  id              String   @unique @default(uuid())
+  name            String
+  characteristics String[]
+  weight          Float
+  port            PetPort
+  description     String?
+  createdAt       DateTime @default(now())
+  Profile         Profile? @relation(fields: [profileId], references: [id])
+  profileId       String?
+}
+
+// model Characteristics {
+//   id   String                 @unique @default(uuid())
+//   name String                 @unique
+//   pets CharacteristicsOnPet[]
+// }
+
+// model CharacteristicsOnPet {
+//   id                String           @unique @default(uuid())
+//   characteristicsId String?
+//   Pet               Pet?             @relation(fields: [petId], references: [id])
+//   petId             String?
+//   Characteristics   Characteristics? @relation(fields: [characteristicsId], references: [id])
+// }
+
+enum PetPort {
+  SMALL
+  MEDIUM
+  LARGE
+}
