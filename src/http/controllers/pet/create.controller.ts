@@ -2,25 +2,50 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { CreatePetUseCase } from "../../../use-cases/create-pet";
 import { PrismaPetRepository } from "../../../repositories/prisma/prisma-pets.repository";
 import { z } from "zod";
-import { PetPort } from "@prisma/client";
+import { PetLevels, PetPort, PetType } from "@prisma/client";
 
 export const createPet = async (req: FastifyRequest, res: FastifyReply) => {
 	const createPetBodySchema = z.object({
 		name: z.string(),
 		weight: z.number(),
-		port: z.enum([PetPort.LARGE, PetPort.MEDIUM, PetPort.SMALL]),
-		description: z.string().nullable(),
+		size: z.nativeEnum(PetPort),
+		description: z.string().max(300).nullable(),
 		characteristics: z.string().array(),
+		levelOfIndependence: z.nativeEnum(PetLevels),
+		powerlevel: z.nativeEnum(PetLevels),
+		age: z.number(),
+		requirementsForAdoption: z.string().max(40).array(),
+		type: z.nativeEnum(PetType),
 	});
 
 	const repository = new PrismaPetRepository();
 	const createPetUseCase = new CreatePetUseCase(repository);
 
-	const data = createPetBodySchema.parse(req.body);
+	const {
+		name,
+		weight,
+		size,
+		description,
+		characteristics,
+		levelOfIndependence,
+		powerlevel,
+		age,
+		requirementsForAdoption,
+		type,
+	} = createPetBodySchema.parse(req.body);
 
 	try {
 		const result = await createPetUseCase.execute({
-			...data,
+			name,
+			weight,
+			size,
+			description,
+			characteristics,
+			levelOfIndependence,
+			powerlevel,
+			age,
+			requirementsForAdoption,
+			type,
 		});
 		return res.status(201).send(result);
 	} catch (err) {

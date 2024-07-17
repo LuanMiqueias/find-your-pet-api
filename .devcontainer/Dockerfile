@@ -1,4 +1,4 @@
-FROM node:20.15.1
+FROM node:18.20.4
 
 
 # [Optional] Uncomment this section to install additional OS packages.

@@ -13,24 +13,30 @@ datasource db {
 model Profile {
   id           String   @unique @default(uuid())
   name         String
-  email        String
+  email        String   @unique
   passwordHash String
   phone        String
-  city         String
   createdAt    DateTime @default(now())
   petList      Pet[]
+  CEP          String
+  address      String
 }
 
 model Pet {
-  id              String   @unique @default(uuid())
-  name            String
-  characteristics String[]
-  weight          Float
-  port            PetPort
-  description     String?
-  createdAt       DateTime @default(now())
-  Profile         Profile? @relation(fields: [profileId], references: [id])
-  profileId       String?
+  id                      String    @unique @default(uuid())
+  name                    String
+  characteristics         String[]
+  weight                  Float
+  size                    PetPort   @default(SMALL)
+  description             String?
+  createdAt               DateTime  @default(now())
+  Profile                 Profile?  @relation(fields: [profileId], references: [id])
+  profileId               String?
+  levelOfIndependence     PetLevels @default(LOW)
+  powerlevel              PetLevels @default(LOW)
+  age                     Int
+  requirementsForAdoption String[]
+  type                    PetType   @default(DOG)
 }
 
 // model Characteristics {
@@ -47,8 +53,20 @@ model Pet {
 //   Characteristics   Characteristics? @relation(fields: [characteristicsId], references: [id])
 // }
 
+enum PetType {
+  DOG
+  CAT
+  OTHER
+}
+
 enum PetPort {
   SMALL
   MEDIUM
   LARGE
+}
+
+enum PetLevels {
+  LOW
+  MEDIUM
+  HIGH
 }
