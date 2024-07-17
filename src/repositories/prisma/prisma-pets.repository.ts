@@ -11,7 +11,13 @@ export class PrismaPetRepository implements PetsRepository {
 		return pet;
 	}
 	async findById(petId: string): Promise<Pet | null> {
-		throw new Error("Method not implemented.");
+		const pet = await prisma.pet.findUnique({
+			where: {
+				id: petId,
+			},
+		});
+
+		return pet;
 	}
 
 	async searchMany(input: {

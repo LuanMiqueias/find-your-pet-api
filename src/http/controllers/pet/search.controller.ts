@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { GetPetsUseCase } from "../../../use-cases/get-pets";
+import { SearchPetsUseCase } from "../../../use-cases/search-pets";
 import { PrismaPetRepository } from "../../../repositories/prisma/prisma-pets.repository";
 import { z } from "zod";
 import { PetLevels, PetSize, PetType } from "@prisma/client";
@@ -17,13 +17,13 @@ export const searchPets = async (req: FastifyRequest, res: FastifyReply) => {
 	});
 
 	const repository = new PrismaPetRepository();
-	const getPetsUseCase = new GetPetsUseCase(repository);
+	const searchPetsUseCase = new SearchPetsUseCase(repository);
 
 	const { size, cep, levelOfIndependence, powerlevel, age, type, page, skip } =
 		SearchPetsQuerySchema.parse(req.query);
 
 	try {
-		const result = await getPetsUseCase.execute({
+		const result = await searchPetsUseCase.execute({
 			size,
 			levelOfIndependence,
 			powerlevel,

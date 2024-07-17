@@ -1,7 +1,7 @@
 import { Pet, PetLevels, PetSize, PetType } from "@prisma/client";
 import { PetsRepository } from "../repositories/pets.repository";
 
-interface GetPetsUseCaseRequest {
+interface SearchPetsUseCaseRequest {
 	size?: PetSize | null;
 	levelOfIndependence?: PetLevels | null;
 	powerlevel?: PetLevels | null;
@@ -12,14 +12,16 @@ interface GetPetsUseCaseRequest {
 	cep: string;
 }
 
-interface GetPetsUseCaseResponse {
+interface SearchPetsUseCaseResponse {
 	pets: Pet[];
 }
 
-export class GetPetsUseCase {
+export class SearchPetsUseCase {
 	constructor(private petsRepository: PetsRepository) {}
 
-	async execute(data: GetPetsUseCaseRequest): Promise<GetPetsUseCaseResponse> {
+	async execute(
+		data: SearchPetsUseCaseRequest
+	): Promise<SearchPetsUseCaseResponse> {
 		const pets = await this.petsRepository.searchMany(data);
 		return { pets };
 	}
