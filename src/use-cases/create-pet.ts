@@ -12,6 +12,7 @@ interface CreatePetUseCaseRequest {
 	age: number;
 	requirementsForAdoption?: string[];
 	type?: $Enums.PetType;
+	profileId: string;
 }
 
 interface CreatePetUseCaseResponse {

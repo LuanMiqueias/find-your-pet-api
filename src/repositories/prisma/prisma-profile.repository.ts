@@ -19,4 +19,13 @@ export class PrismaProfileRepository implements ProfileRepository {
 
 		return profile;
 	}
+	async findById(id: string) {
+		const profile = await prisma.profile.findUnique({
+			where: {
+				id,
+			},
+		});
+
+		return profile;
+	}
 }

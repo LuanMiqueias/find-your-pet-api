@@ -46,6 +46,7 @@ export const createPet = async (req: FastifyRequest, res: FastifyReply) => {
 			age,
 			requirementsForAdoption,
 			type,
+			profileId: req.user.sub,
 		});
 		return res.status(201).send(result);
 	} catch (err) {
