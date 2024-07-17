@@ -2,13 +2,13 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { CreatePetUseCase } from "../../../use-cases/create-pet";
 import { PrismaPetRepository } from "../../../repositories/prisma/prisma-pets.repository";
 import { z } from "zod";
-import { PetLevels, PetPort, PetType } from "@prisma/client";
+import { PetLevels, PetSize, PetType } from "@prisma/client";
 
 export const createPet = async (req: FastifyRequest, res: FastifyReply) => {
 	const createPetBodySchema = z.object({
 		name: z.string(),
 		weight: z.number(),
-		size: z.nativeEnum(PetPort),
+		size: z.nativeEnum(PetSize),
 		description: z.string().max(300).nullable(),
 		characteristics: z.string().array(),
 		levelOfIndependence: z.nativeEnum(PetLevels),

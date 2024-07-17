@@ -27,7 +27,7 @@ model Pet {
   name                    String
   characteristics         String[]
   weight                  Float
-  size                    PetPort   @default(SMALL)
+  size                    PetSize   @default(SMALL)
   description             String?
   createdAt               DateTime  @default(now())
   Profile                 Profile?  @relation(fields: [profileId], references: [id])
@@ -59,7 +59,7 @@ enum PetType {
   OTHER
 }
 
-enum PetPort {
+enum PetSize {
   SMALL
   MEDIUM
   LARGE

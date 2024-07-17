@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { CreatePetUseCase } from "../../../use-cases/create-pet";
 import { PrismaPetRepository } from "../../../repositories/prisma/prisma-pets.repository";
 import { z } from "zod";
-import { PetLevels, PetPort, PetType } from "@prisma/client";
+import { PetLevels, PetType } from "@prisma/client";
 import { PrismaProfileRepository } from "../../../repositories/prisma/prisma-profile.repository";
 import { CreateProfileUseCase } from "../../../use-cases/create-profile";
 import { UserAlreadyExistsError } from "@/use-cases/errors/user.already-exists-error";

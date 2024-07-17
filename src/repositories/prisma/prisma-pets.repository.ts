@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { Prisma, Pet } from "@prisma/client";
+import { Prisma, Pet, PetLevels, PetType, PetSize } from "@prisma/client";
 import { PetsRepository } from "../pets.repository";
 
 export class PrismaPetRepository implements PetsRepository {
@@ -12,5 +12,44 @@ export class PrismaPetRepository implements PetsRepository {
 	}
 	async findById(petId: string): Promise<Pet | null> {
 		throw new Error("Method not implemented.");
+	}
+
+	async searchMany(input: {
+		cep: string;
+		size?: PetSize;
+		levelOfIndependence?: PetLevels;
+		age?: number;
+		powerlevel?: PetLevels;
+		type?: PetType;
+		page: number;
+		skip: number;
+	}) {
+		const pets = await prisma.pet.findMany({
+			// skip: (input.page - 1) * input.skip,
+			where: {
+				Profile: {
+					CEP: input.cep,
+				},
+				AND: [
+					{
+						size: input.size,
+					},
+					{
+						levelOfIndependence: input.levelOfIndependence,
+					},
+					{
+						type: input.type,
+					},
+					{
+						powerlevel: input.powerlevel,
+					},
+					{
+						age: input.age,
+					},
+				],
+			},
+		});
+
+		return pets;
 	}
 }

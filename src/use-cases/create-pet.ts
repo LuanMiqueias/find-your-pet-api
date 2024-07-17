@@ -1,4 +1,4 @@
-import { $Enums, Pet } from "@prisma/client";
+import { $Enums, Pet, PetLevels, PetSize, PetType } from "@prisma/client";
 import { PetsRepository } from "../repositories/pets.repository";
 
 interface CreatePetUseCaseRequest {
@@ -6,12 +6,12 @@ interface CreatePetUseCaseRequest {
 	weight: number;
 	description?: string | null;
 	characteristics?: string[];
-	size?: $Enums.PetPort;
-	levelOfIndependence?: $Enums.PetLevels;
-	powerlevel?: $Enums.PetLevels;
+	size?: PetSize;
+	levelOfIndependence?: PetLevels;
+	powerlevel?: PetLevels;
 	age: number;
 	requirementsForAdoption?: string[];
-	type?: $Enums.PetType;
+	type?: PetType;
 	profileId: string;
 }
 
