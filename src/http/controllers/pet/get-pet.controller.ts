@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 import { PrismaPetRepository } from "../../../repositories/prisma/prisma-pets.repository";
 import { GetPetUseCase } from "../../../use-cases/get-pet";
-import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../../../use-cases/errors/resource-not-found-error";
 
 export const getPet = async (req: FastifyRequest, res: FastifyReply) => {
 	const GetPetParamsSchema = z.object({

@@ -3,7 +3,7 @@ import { Prisma, Pet, PetLevels, PetType, PetSize } from "@prisma/client";
 import { PetsRepository } from "../pets.repository";
 
 export class PrismaPetRepository implements PetsRepository {
-	async create(data: Prisma.PetCreateInput) {
+	async create(data: Prisma.PetUncheckedCreateInput) {
 		const pet = await prisma.pet.create({
 			data,
 		});

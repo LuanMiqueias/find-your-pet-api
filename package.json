@@ -6,11 +6,14 @@
 	"author": "Luan Miqueias <luanmiqueias92@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "tsx watch src/server.ts",
+		"dev": "tsx watch ./src/server.ts",
 		"start": "node build/server.js",
-		"build": "tsup src --out-dir build"
+		"build": "tsup src --out-dir build",
+		"test": "vitest run --dir src/use-cases",
+		"test:watch": "vitest test --dir src/use-cases"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
 		"@types/node": "20.11.16",
 		"@types/supertest": "6.0.2",
 		"@typescript-eslint/eslint-plugin": "6.20.0",
@@ -35,6 +38,8 @@
 		"dayjs": "1.11.11",
 		"dotenv": "16.4.1",
 		"fastify": "4.26.0",
+		"nodemon": "^3.1.4",
+		"ts-node": "^10.9.2",
 		"zod": "3.22.4"
 	}
 }
