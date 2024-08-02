@@ -7,9 +7,9 @@ import { searchPets } from "./search.controller";
 import { getPet } from "./get-pet.controller";
 
 export const petsRoutes = async (app: FastifyInstance) => {
-	app.addHook("onRequest", verifyJWT);
+	// app.addHook("onRequest", verifyJWT);
 
-	app.post("/pet", createPet);
+	app.post("/pet", { onRequest: verifyJWT }, createPet);
 	app.get("/pet", searchPets);
 	app.get("/pet/:petId", getPet);
 };
